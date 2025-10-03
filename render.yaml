@@ -1,22 +1,39 @@
 services:
   - type: web
     name: college-complaint-backend
-    rootDir: backend 
+    rootDir: backend
     plan: free
+    runtime: docker
     buildCommand: ./mvnw -DskipTests package || mvn -DskipTests package
     startCommand: java -jar target/*.jar
     envVars:
       - key: DB_HOST
-        sync: false
+        fromDatabase:
+          name: complaint-db
+          property: host
       - key: DB_PORT
-        value: 3306
+        fromDatabase:
+          name: complaint-db
+          property: port
       - key: DB_NAME
-        value: college_complaint_portal
+        fromDatabase:
+          name: complaint-db
+          property: database
       - key: DB_USERNAME
-        sync: false
+        fromDatabase:
+          name: complaint-db
+          property: user
       - key: DB_PASSWORD
-        sync: false
+        fromDatabase:
+          name: complaint-db
+          property: password
       - key: FRONTEND_ORIGIN
         sync: false
       - key: JWT_SECRET
         sync: false
+
+databases:
+  - name: complaint-db
+    databaseName: college_complaint_portal
+    user: complaint_user
+    plan: free
