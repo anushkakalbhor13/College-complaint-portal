@@ -1,10 +1,10 @@
 services:
   - type: web
     name: college-complaint-backend
-    rootDir: backend
+    rootDir: backend 
     plan: free
     buildCommand: ./mvnw -DskipTests package || mvn -DskipTests package
-    startCommand: java -jar target/complaint-backend-0.0.1-SNAPSHOT.jar
+    startCommand: java -jar target/*.jar
     envVars:
       - key: DB_HOST
         sync: false
@@ -20,5 +20,3 @@ services:
         sync: false
       - key: JWT_SECRET
         sync: false
-
-
