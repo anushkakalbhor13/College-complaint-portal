@@ -24,7 +24,7 @@ vendor/
 .env.local
 .env.production
 .env.staging
-.env.example
+
 
 # Database
 *.sql.backup
@@ -77,4 +77,5 @@ db_credentials.php
 # Error logs
 error.log
 error_log
+
 php_errors.log
