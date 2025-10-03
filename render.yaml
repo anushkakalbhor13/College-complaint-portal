@@ -3,7 +3,6 @@ services:
     name: college-complaint-backend
     rootDir: backend
     plan: free
-    runtime: docker
     buildCommand: ./mvnw -DskipTests package || mvn -DskipTests package
     startCommand: java -jar target/*.jar
     envVars:
@@ -37,3 +36,4 @@ databases:
     databaseName: college_complaint_portal
     user: complaint_user
     plan: free
+
