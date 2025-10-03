@@ -1,0 +1,80 @@
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# PHP
+*.log
+composer.phar
+vendor/
+.env
+.env.local
+.env.production
+.env.staging
+.env.example
+
+# Database
+*.sql.backup
+*.db
+*.sqlite
+*.sqlite3
+
+# Cache and temporary files
+cache/
+temp/
+tmp/
+logs/
+*.tmp
+*.cache
+
+# User uploads
+uploads/*
+!uploads/.htaccess
+attachments/*
+!attachments/.htaccess
+media/*
+!media/.htaccess
+
+# Build files
+dist/
+build/
+target/
+*.war
+*.jar
+*.class
+
+# Node.js (if using npm/yarn for frontend assets)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Backup files
+*.bak
+*.backup
+*.orig
+
+# Configuration files with sensitive data
+config/database.php
+config/secrets.php
+db_credentials.php
+
+# Error logs
+error.log
+error_log
+php_errors.log

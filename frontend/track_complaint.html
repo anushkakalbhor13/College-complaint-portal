@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Track Complaints</title>
+  <link rel="stylesheet" href="./assets/css/main.css" />
+  <script defer src="./config.js"></script>
+  <script defer>
+    function requireAuth() {
+      const user = localStorage.getItem('user');
+      if (!user) { window.location.href = './login.html'; }
+      return JSON.parse(user || '{}');
+    }
+    async function loadComplaints() {
+      requireAuth();
+      const res = await fetch(`${window.BACKEND_URL}/api/complaints`, { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } });
+      const list = await res.json();
+      const tbody = document.querySelector('#complaints tbody');
+      tbody.innerHTML = '';
+      list.forEach(c => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${c.id}</td><td>${c.title}</td><td>${c.status}</td><td>${new Date(c.created_at).toLocaleString()}</td>`;
+        tbody.appendChild(tr);
+      });
+    }
+    window.addEventListener('DOMContentLoaded', loadComplaints);
+    function logout() { localStorage.removeItem('user'); window.location.href = './index.html'; }
+  </script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand">Complaint Portal</div>
+    <div class="actions">
+      <a href="./index.html" class="btn secondary">Home</a>
+      <button class="btn danger" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="card">
+      <h2>Your Complaints</h2>
+      <table class="table" id="complaints">
+        <thead><tr><th>ID</th><th>Title</th><th>Status</th><th>Created</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Complaint Management System | College Name</p>
+  </footer>
+</body>
+</html>

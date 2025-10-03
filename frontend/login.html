@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="stylesheet" href="./assets/css/main.css" />
+  <script defer src="./config.js"></script>
+  <script defer>
+    async function handleLogin(e) {
+      e.preventDefault();
+      const form = e.target;
+      const payload = {
+        email: form.email.value.trim(),
+        password: form.password.value,
+        role: form.role.value
+      };
+      try {
+        const res = await fetch(`${window.BACKEND_URL}/api/auth/login`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Login failed');
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        window.location.href = './submit_complaint.html';
+      } catch (err) {
+        alert(err.message);
+      }
+    }
+  </script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand">Complaint Portal</div>
+    <div class="actions">
+      <a href="./index.html" class="btn secondary">Home</a>
+      <a href="./register.html" class="btn">Register</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="card">
+      <h2>Login</h2>
+      <form onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+        <div class="form-group">
+          <label for="role">Role</label>
+          <select id="role" name="role" required>
+            <option value="student">Student</option>
+            <option value="admin">Admin</option>
+            <option value="official">Official</option>
+          </select>
+        </div>
+        <button class="btn" type="submit">Login</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Complaint Management System | College Name</p>
+  </footer>
+</body>
+</html>
